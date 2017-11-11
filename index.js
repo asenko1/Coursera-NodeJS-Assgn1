@@ -8,7 +8,7 @@ const port = 3000;
 const app = express(); //our app is going to use express
 app.use(morgan('dev'));
 
-app.use(express.static(_dirname+ '/public')); //serve static files from...
+app.use(express.static(__dirname+ '/public')); //serve static files from...
 
 //server setup
 app.use((req,res,next) => {
