@@ -29,4 +29,22 @@ dishRouter.route('/') //why not dishes? -> mounted in index.js
     res.end('Deleting all the dishes');
 });
 
+
+dishRouter.route('/:dishId')
+.get((req,res,next) => { 
+    res.end('Will send details of the dish: ' + req.params.dishId);
+})
+.post((req,res,next) =>{ //will carry data with it
+    res.statusCode = 403;
+    res.end('POST not supported on dishId');    
+})
+.put((req,res,next) => {
+    res.write('Updating the dish: ' + req.params.dishId + '\n');
+    res.end('Will update the dish: ' + req.body.name + 
+        ' with details: ' + req.body.description);
+})
+.delete((req,res,next) => { //will need to restrict this later
+    res.end('Deleting dish: ' + req.params.dishId);
+});
+
 module.exports = dishRouter; //Why? -> exposes dishRouter to other modules
