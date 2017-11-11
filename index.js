@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const dishRouter = require('./routes/dishRouter');
 const promoRouter = require('./routes/promoRouter');
+const leaderRouter = require('./routes/leaderRoute');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -15,8 +16,7 @@ app.use(bodyParser.json()); //allows ability to parse body portion -> req.body
 
 app.use('/dishes', dishRouter); //mounting dishRouter at /dishes endpoint
 app.use('/promotions', promoRouter);
-
-
+app.use('/leaders', leaderRouter);
 
 app.use(express.static(__dirname+ '/public')); //serve static files from...
 
