@@ -3,6 +3,8 @@ const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+const dishRouter = require('./routes/dishRouter');
+
 const hostname = 'localhost';
 const port = 3000;
 
@@ -10,29 +12,7 @@ const app = express(); //our app is going to use express
 app.use(morgan('dev'));
 app.use(bodyParser.json()); //allows ability to parse body portion -> req.body
 
-app.all('/dishes', (req,res,next) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    next(); //will continue to look for specifcations that match dishes endpoint
-});
-
-app.get('/dishes', (req,res,next) => {
-    res.end('Will Send all the dishes to you');
-});
-
-app.post('/dishes', (req,res,next) =>{ //will carry data with it
-    res.end('Will add the dish: ' + req.body.name + ' with details: '
-        + req.body.description) ;//body will contain name, description in json string
-});
-
-app.put('/dishes', (req,res,next) => {
-    res.statusCode = 403;
-    res.end('PUT operation not supported on /dishes');
-});
-
-app.delete('/dishes', (req,res,next) => { //will need to restrict this later
-    res.end('Deleting all the dishes');
-});
+app.use('/dishes', dishRouter); //mounting dishRouter at /dishes endpoint
 
 app.get('/dishes/:dishId', (req,res,next) => { 
     res.end('Will send details of the dish: ' + req.params.dishId);
